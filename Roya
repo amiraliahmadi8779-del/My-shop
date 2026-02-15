@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ahmad Online Shop</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial;
+    background:#f2f2f2;
+}
+
+header{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+.container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    width:250px;
+    margin:15px;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+.card img{
+    width:100%;
+}
+
+button{
+    background:#28a745;
+    color:white;
+    padding:8px 15px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#218838;
+}
+
+.cart{
+    background:white;
+    padding:20px;
+    margin:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Ahmad Online Shop</h1>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h3>خرما</h3>
+        <img src="https://via.placeholder.com/250">
+        <p>100 افغانی</p>
+        <button onclick="addToCart(100)">اضافه به سبد</button>
+    </div>
+
+    <div class="card">
+        <h3>هدفون</h3>
+        <img src="https://via.placeholder.com/250">
+        <p>800 افغانی</p>
+        <button onclick="addToCart(800)">اضافه به سبد</button>
+    </div>
+
+</div>
+
+<div class="cart">
+    <h2>🛒 سبد خرید</h2>
+    <p>جمع کل: <span id="total">0</span> افغانی</p>
+</div>
+
+<script>
+let total = 0;
+
+function addToCart(price){
+    total += price;
+    document.getElementById("total").innerText = total;
+    alert("محصول به سبد اضافه شد!");
+}
+</script>
+
+</body>
+</html>
