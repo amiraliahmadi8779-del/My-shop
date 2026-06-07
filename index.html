@@ -1,135 +1,216 @@
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>فروشگاه لباس امیرعلی</title>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>amirali shopن</title>
 
 <style>
 body{
-    margin:0;
-    font-family:tahoma;
-    background:#ffffff;
-    text-align:center;
+  margin:0;
+  font-family:tahoma;
+  background:#f2f2f2;
+  direction:rtl;
 }
 
-h1{
-    padding:20px;
-    background:black;
-    color:white;
+header{
+  background:#ef394e;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+#search{
+  width:90%;
+  margin:15px auto;
+  display:block;
+  padding:10px;
+  font-size:16px;
+  border-radius:8px;
+  border:1px solid #ccc;
 }
 
 .products{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:30px;
-    padding:40px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:15px;
+  padding:15px;
 }
 
-.card{
-    background:#fff;
-    width:250px;
-    border-radius:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.1);
-    padding:15px;
-    transition:0.3s;
+.product{
+  background:white;
+  border-radius:10px;
+  padding:10px;
+  text-align:center;
 }
 
-.card:hover{
-    transform:translateY(-10px);
+.product img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:8px;
 }
 
-.card img{
-    width:100%;
-    border-radius:10px;
+.product button{
+  background:#ef394e;
+  color:white;
+  border:none;
+  padding:8px;
+  width:100%;
+  border-radius:6px;
+  cursor:pointer;
 }
 
-.price{
-    color:green;
-    font-size:18px;
-    font-weight:bold;
+.cart{
+  background:white;
+  margin:20px;
+  padding:15px;
+  border-radius:10px;
 }
 
-button{
-    background:black;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:8px;
-    cursor:pointer;
-    margin-top:10px;
-}
-
-button:hover{
-    background:green;
-}
-
-.contact{
-    background:#f5f5f5;
-    padding:40px;
-}
-
-.contact input, .contact textarea{
-    width:80%;
-    padding:10px;
-    margin:10px 0;
-    border-radius:8px;
-    border:1px solid #ccc;
-}
-
-footer{
-    background:black;
-    color:white;
-    padding:20px;
+#whatsapp{
+  background:#25d366;
+  color:white;
+  display:block;
+  text-align:center;
+  padding:12px;
+  text-decoration:none;
+  border-radius:8px;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🔥 فروشگاه لباس امیرعلی 🔥</h1>
+<header>
+  <h2>🛒 فروشگاه خفن</h2>
+  <div id="cart-count">سبد خرید: 0</div>
+</header>
 
-<div class="products">
+<input id="search" placeholder="جستجوی محصول...">
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
-<h3>هودی مشکی اسپرت</h3>
-<p>جنس عالی، مناسب پاییز و زمستان</p>
-<p class="price">850,000 تومان</p>
-<button>خرید محصول</button>
+<div class="products" id="products"></div>
+
+<div class="cart">
+  <h3>سبد خرید</h3>
+  <ul id="cart-items"></ul>
+  <strong>جمع کل: <span id="total">0</span> تومان</strong>
+  <a id="whatsapp" target="_blank">ثبت سفارش در واتساپ</a>
 </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
-<h3>تیشرت سفید مینیمال</h3>
-<p>سبک مدرن، پارچه نخ درجه یک</p>
-<p class="price">420,000 تومان</p>
-<button>خرید محصول</button>
-</div>
+<script>
+const products = [
+{ id:1, name:"Samsung Galaxy A54", price:18500000 },
+{ id:2, name:"Xiaomi Redmi Note 13", price:13200000 },
+{ id:3, name:"iPhone 11", price:28500000 },
+{ id:4, name:"Poco X5 Pro", price:14800000 },
+{ id:5, name:"Galaxy S21 FE", price:24500000 },
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246">
-<h3>کت جین آبی</h3>
-<p>استایل خاص و بسیار باکیفیت</p>
-<p class="price">1,250,000 تومان</p>
-<button>خرید محصول</button>
-</div>
+{ id:6, name:"ASUS VivoBook i5", price:38500000 },
+{ id:7, name:"HP Pavilion", price:42500000 },
+{ id:8, name:"Lenovo IdeaPad", price:36500000 },
+{ id:9, name:"Dell Inspiron", price:40500000 },
+{ id:10, name:"Acer Aspire", price:35500000 },
 
-</div>
+{ id:11, name:"هدفون JBL", price:1850000 },
+{ id:12, name:"هدفون Sony WH-1000", price:8250000 },
+{ id:13, name:"ایرپاد Xiaomi", price:1650000 },
+{ id:14, name:"AirPods 2", price:6200000 },
+{ id:15, name:"هدست گیمینگ", price:1350000 },
 
-<div class="contact">
-<h2>تماس با ما</h2>
-<p>📞 شماره تماس: 0796552252</p>
-<p>📧 ایمیل: info@myshop.com</p>
+{ id:16, name:"ساعت Xiaomi S1", price:4250000 },
+{ id:17, name:"Apple Watch SE", price:14500000 },
+{ id:18, name:"Haylou LS02", price:1450000 },
+{ id:19, name:"Galaxy Watch 4", price:9850000 },
+{ id:20, name:"Amazfit GTS", price:5250000 },
 
-<input type="text" placeholder="نام شما">
-<input type="email" placeholder="ایمیل شما">
-<textarea rows="4" placeholder="پیام شما"></textarea>
-<br>
-<button>ارسال پیام</button>
-</div>
+{ id:21, name:"پاوربانک 20000", price:1250000 },
+{ id:22, name:"پاوربانک Anker", price:1650000 },
+{ id:23, name:"شارژر سریع", price:650000 },
+{ id:24, name:"کابل تایپ C", price:280000 },
+{ id:25, name:"شارژر فندکی", price:450000 },
 
-<footer>
-© 2026 تمامی حقوق محفوظ است | طراحی شده توسط امیرعلی
-</footer>
+{ id:26, name:"کیبورد RGB", price:1850000 },
+{ id:27, name:"ماوس Logitech", price:1350000 },
+{ id:28, name:"مانیتور 24 اینچ", price:12850000 },
+{ id:29, name:"اسپیکر JBL", price:9850000 },
+{ id:30, name:"اسپیکر Xiaomi", price:2350000 },
+
+{ id:31, name:"دوربین مداربسته", price:1850000 },
+{ id:32, name:"فلش 64GB", price:480000 },
+{ id:33, name:"هارد 1TB", price:2850000 },
+{ id:34, name:"رم 8GB", price:1250000 },
+{ id:35, name:"SSD 512GB", price:2350000 },
+
+{ id:36, name:"کنسول PS4", price:32500000 },
+{ id:37, name:"دسته PS4", price:2850000 },
+{ id:38, name:"دسته Xbox", price:3150000 },
+{ id:39, name:"فرمان بازی", price:8250000 },
+{ id:40, name:"هدست VR", price:14500000 },
+
+{ id:41, name:"تلویزیون 50 اینچ", price:42500000 },
+{ id:42, name:"تلویزیون 43 اینچ", price:36500000 },
+{ id:43, name:"گیرنده دیجیتال", price:850000 },
+{ id:44, name:"اندروید باکس", price:2450000 },
+{ id:45, name:"ویدئو پروژکتور", price:18500000 },
+
+{ id:46, name:"مودم 4G", price:2850000 },
+{ id:47, name:"مودم TD-LTE", price:4850000 },
+{ id:48, name:"روتر TP-Link", price:1650000 },
+{ id:49, name:"سوئیچ شبکه", price:1250000 },
+{ id:50, name:"کارت شبکه USB", price:350000 }
+];
+
+const productsDiv = document.getElementById("products");
+const cartItems = document.getElementById("cart-items");
+const totalSpan = document.getElementById("total");
+const cartCount = document.getElementById("cart-count");
+const search = document.getElementById("search");
+
+let cart = [];
+
+function render(list){
+  productsDiv.innerHTML="";
+  list.forEach(p=>{
+    productsDiv.innerHTML+=`
+      <div class="product">
+        <img src="https://picsum.photos/300?random=${p.id}">
+        <h4>${p.name}</h4>
+        <p>${p.price.toLocaleString()} تومان</p>
+        <button onclick="add(${p.id})">افزودن</button>
+      </div>
+    `;
+  });
+}
+
+function add(id){
+  cart.push(products.find(p=>p.id===id));
+  update();
+}
+
+function update(){
+  cartItems.innerHTML="";
+  let total=0;
+  cart.forEach(p=>{
+    total+=p.price;
+    cartItems.innerHTML+=`<li>${p.name} - ${p.price.toLocaleString()}</li>`;
+  });
+  totalSpan.innerText=total.toLocaleString();
+  cartCount.innerText="سبد خرید: "+cart.length;
+
+  let text=cart.map(p=>p.name+" - "+p.price).join("%0A");
+  document.getElementById("whatsapp").href=
+  "https://wa.me/+930796552252?text=سفارش:%0A"+text+"%0Aجمع:"+total;
+}
+
+search.addEventListener("input",()=>{
+  render(products.filter(p=>p.name.includes(search.value)));
+});
+
+render(products);
+</script>
 
 </body>
 </html>
